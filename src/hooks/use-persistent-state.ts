@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native";
 
 export const usePersistentState = function<T>(
   key: string,
-  initialState: any
+  initialState: T
 ): [T, Dispatch<SetStateAction<T>>] {
   const [state, setState] = useState<T>(initialState);
 
