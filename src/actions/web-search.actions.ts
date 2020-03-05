@@ -3,17 +3,21 @@ import { ApiAction } from "src/middlewares/api.middleware";
 import { WebSearchResultsState } from "src/reducers/web-search-results.reducer";
 
 import {
-  normalizeSearchWebsitesResponse,
-  SearchWebsitesResponse
-} from "src/normalizers/web-search.normalizers";
+  SearchWebsitesResponse,
+  formatSearchWebsitesResponse
+} from "src/response-formatters/web-search.response-formatters";
 
 export const SET_WEB_SEARCH_RESULTS = "Set Web Search Results";
 
 export const SEARCH_WEBSITES = "Search Websites";
 
-export const setWebSearchResults = (payload: WebSearchResultsState) => ({
+export const setWebSearchResults = (
+  webSearchResults: WebSearchResultsState
+) => ({
   type: SET_WEB_SEARCH_RESULTS,
-  payload
+  payload: {
+    webSearchResults
+  }
 });
 
 export const searchWebsites = (query): ApiAction => ({
@@ -26,7 +30,7 @@ export const searchWebsites = (query): ApiAction => ({
       format: "json"
     },
     onSuccess: (res: SearchWebsitesResponse) =>
-      setWebSearchResults(normalizeSearchWebsitesResponse(res))
+      setWebSearchResults(formatSearchWebsitesResponse(res))
   },
   meta: {
     api: true

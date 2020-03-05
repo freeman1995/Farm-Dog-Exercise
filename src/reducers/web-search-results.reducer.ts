@@ -2,9 +2,7 @@ import { handleActions } from "redux-actions";
 
 import * as actions from "src/actions/web-search.actions";
 
-const initialState = {
-  general: []
-};
+const initialState = {};
 
 export type WebSearchResult = {
   url: string;
@@ -13,7 +11,7 @@ export type WebSearchResult = {
 };
 
 export type WebSearchResultsState = {
-  general: WebSearchResult[];
+  general?: WebSearchResult[];
   [category: string]: WebSearchResult[];
 };
 
@@ -22,7 +20,7 @@ const webSearchResultsReducer = handleActions<WebSearchResultsState, any>(
     [actions.SET_WEB_SEARCH_RESULTS]: (
       state,
       action: ReturnType<typeof actions.setWebSearchResults>
-    ) => action.payload
+    ) => action.payload.webSearchResults
   },
   initialState
 );

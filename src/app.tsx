@@ -1,13 +1,18 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Provider } from "react-redux";
+import { NativeRouter, Route } from "react-router-native";
 
 import store from "src/store";
 
-import Root from "src/components/root";
+import Home from "src/components/home/home";
+import SearchHistory from "src/components/search-history/search-history";
 
-export const App: FunctionComponent = ({ children }) => (
+export const App = () => (
   <Provider store={store}>
-    <Root />
+    <NativeRouter>
+      <Route exact path="/" component={Home} />
+      <Route path="/search-history" component={SearchHistory} />
+    </NativeRouter>
   </Provider>
 );
 

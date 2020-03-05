@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
   TouchableHighlight,
   TextInput,
@@ -31,10 +31,20 @@ const SearchIcon = styled(Image)`
 
 type Props = {
   onSearch: (query: string) => void;
+  initialQuery?: string;
 };
 
-export const SearchBox: FunctionComponent<Props> = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+export const SearchBox: FunctionComponent<Props> = ({
+  onSearch,
+  initialQuery
+}) => {
+  const [query, setQuery] = useState(initialQuery || "");
+
+  useEffect(() => {
+    if (initialQuery) {
+      onSearch(initialQuery);
+    }
+  }, []);
 
   return (
     <Container>
@@ -51,6 +61,7 @@ export const SearchBox: FunctionComponent<Props> = ({ onSearch }) => {
         onPress={() => {
           Keyboard.dismiss();
           onSearch(query);
+          setQuery(query.trim());
         }}
       >
         <SearchIcon width={40} height={40} source={searchIcon} />

@@ -1,7 +1,8 @@
 import {
   WebSearchResult,
   WebSearchResultsState
-} from "reducers/web-search-results.reducer";
+} from "src/reducers/web-search-results.reducer";
+import { getOr } from "lodash/fp";
 
 type SearchResultEntity = {
   FirstURL: string;
@@ -26,29 +27,26 @@ const formatSearchResultEntity = (
   icon: searchResultEntity.Icon.URL
 });
 
-export const normalizeSearchWebsitesResponse = (
+export const formatSearchWebsitesResponse = (
   res: SearchWebsitesResponse
 ): WebSearchResultsState =>
-  res.RelatedTopics.reduce(
-    (webSearchResults, currentItem) => {
-      if ((currentItem as CategorySearchResults).Name) {
-        const categorySearchResults = currentItem as CategorySearchResults;
-
-        return {
-          ...webSearchResults,
-          [categorySearchResults.Name]: categorySearchResults.Topics.map(
-            formatSearchResultEntity
-          )
-        };
-      }
+  res.RelatedTopics.reduce((webSearchResults, currentItem) => {
+    if ((currentItem as CategorySearchResults).Name) {
+      const categorySearchResults = currentItem as CategorySearchResults;
 
       return {
         ...webSearchResults,
-        general: [
-          ...webSearchResults.general,
-          formatSearchResultEntity(currentItem as SearchResultEntity)
-        ]
+        [categorySearchResults.Name]: categorySearchResults.Topics.map(
+          formatSearchResultEntity
+        )
       };
-    },
-    { general: [] }
-  );
+    }
+
+    return {
+      ...webSearchResults,
+      general: [
+        ...getOr([], "general", webSearchResults),
+        formatSearchResultEntity(currentItem as SearchResultEntity)
+      ]
+    };
+  }, {});

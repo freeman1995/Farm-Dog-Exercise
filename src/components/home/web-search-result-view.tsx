@@ -11,16 +11,24 @@ import styled from "styled-components/native";
 
 import { WebSearchResult } from "src/reducers/web-search-results.reducer";
 
-const Container = styled(TouchableHighlight)`
+const TouchableContainer = styled(TouchableHighlight)`
   padding: 20px 10px;
   margin: 5px;
   background-color: #fff;
 `;
 
+const Container = styled(View)`
+  flex-direction: row;
+`;
+
 const Icon = styled(Image)`
   width: 45px;
   height: 45px;
-  padding: 5px;
+  margin: 5px;
+`;
+
+const ResultText = styled(Text)`
+  flex: 1;
 `;
 
 const styles = StyleSheet.create({
@@ -41,16 +49,16 @@ export const WebSearchResultView: FunctionComponent<WebSearchResult> = ({
   text,
   icon
 }) => (
-  <Container
+  <TouchableContainer
     onPress={() => Linking.openURL(url)}
     underlayColor="crimson"
     style={styles.container}
   >
-    <View>
+    <Container>
       {Boolean(icon) && <Icon source={{ uri: icon }} />}
-      <Text>{text}</Text>
-    </View>
-  </Container>
+      <ResultText>{text}</ResultText>
+    </Container>
+  </TouchableContainer>
 );
 
 export default WebSearchResultView;
