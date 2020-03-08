@@ -5,7 +5,7 @@ import React, {
   useState
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StatusBar, View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { Link, RouteComponentProps } from "react-router-native";
 import styled from "styled-components/native";
 import qs from "qs";
@@ -28,7 +28,6 @@ import { LinkText } from "src/components/common/styled";
 
 const Container = styled(View)`
   flex: 1;
-  margin-top: ${StatusBar.currentHeight}px;
   padding: 10px;
   background: #f7f7f7;
 `;

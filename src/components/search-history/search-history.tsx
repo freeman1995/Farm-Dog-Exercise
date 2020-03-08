@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { Link } from "react-router-native";
 import styled from "styled-components/native";
 import qs from "qs";
@@ -10,7 +10,6 @@ import { usePersistentState } from "src/hooks/use-persistent-state";
 
 const Container = styled(View)`
   flex: 1;
-  margin-top: ${StatusBar.currentHeight}px;
   padding: 10px;
   background: #f7f7f7;
 `;

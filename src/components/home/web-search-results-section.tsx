@@ -22,6 +22,7 @@ const Category = styled(Text)`
   font-size: 30px;
   color: crimson;
   text-transform: capitalize;
+  background-color: #ffffff;
 `;
 
 type Props = {
